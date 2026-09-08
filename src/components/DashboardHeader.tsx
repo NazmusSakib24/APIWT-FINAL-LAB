@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import StatBadge from './StatBadge'
 
 interface DashboardHeaderProps {
     title: string,
@@ -17,6 +18,11 @@ export default function DashboardHeader(header: DashboardHeaderProps) {
                     <a href="#">Students</a>
                     <a href="#">Courses</a>
                 </nav>
+
+                <StatBadge
+                    label="Students"
+                    value="4"
+                />
             </header>
         </>
     )

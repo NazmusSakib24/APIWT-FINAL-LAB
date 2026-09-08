@@ -94,3 +94,21 @@ nav a:hover {
     object-fit: cover;
     border-radius: 50%;
 }
+.course-tag {
+    display: inline-block;
+    padding: var(--spacing-small) var(--spacing-medium);
+    border-radius: 20px;
+    font-size: var(--text-size);
+    color: var(--text-color);
+    margin: var(--spacing-small);
+}
+
+.stat-badge {
+    display: inline-block;
+    padding: var(--spacing-small) var(--spacing-medium);
+    margin: var(--spacing-small);
+    border-radius: 8px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-weight: bold;
+}

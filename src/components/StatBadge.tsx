@@ -8,7 +8,7 @@ interface StatBadgeProps {
 export default function StatBadge(stat: StatBadgeProps) {
     return (
         <>
-            <span>
+            <span className="stat-badge">
                 {stat.label}: {stat.value}
             </span>
         </>

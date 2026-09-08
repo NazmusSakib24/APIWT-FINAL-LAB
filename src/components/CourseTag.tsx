@@ -8,7 +8,7 @@ interface CourseTagProps {
 export default function CourseTag(course: CourseTagProps) {
     return (
         <>
-            <span style={{ backgroundColor: course.color }}>
+            <span className='course-tag' style={{ backgroundColor: course.color }}>
                 {course.courseName}
             </span>
         </>
