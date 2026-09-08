@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types'
+
 interface StatBadgeProps {
     label: string,
-    value: string,
+    value: string
 }
 
 export default function StatBadge(stat: StatBadgeProps) {
-
     return (
         <>
             <span>
@@ -13,3 +14,10 @@ export default function StatBadge(stat: StatBadgeProps) {
         </>
     )
 }
+
+Object.assign(StatBadge, {
+    propTypes: {
+        label: PropTypes.string.isRequired,
+        value: PropTypes.string.isRequired
+    }
+})

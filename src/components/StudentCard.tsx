@@ -1,32 +1,53 @@
+import PropTypes from 'prop-types'
 import CourseTag from './CourseTag'
 import StatBadge from './StatBadge'
 
-interface StudentCardProps{
-    name:string,
-    id:number,
-    avatar:string,
-    gpa:number,
-    major:string
+interface StudentCardProps {
+    name: string,
+    id: number,
+    avatar: string,
+    gpa: number,
+    major: string
 }
 
-export default function StudentCard(student:StudentCardProps){
+export default function StudentCard(student: StudentCardProps) {
     return (
-        <>
-            <p>{student.name}</p>
-            <p>{student.id}</p>
-            <img src={student.avatar}/>
-            <p>{student.gpa}</p>
-            <p>{student.major}</p>
+        <div className="student-card">
 
-            <CourseTag
-                courseName="Advanced Programmin in Web Technology"
-                color="lightblue"
+            <img
+                className="student-avatar"
+                src={student.avatar}
+                alt={student.name}
             />
 
+            <h2>{student.name}</h2>
+
+            <p>Student ID: {student.id}</p>
+
+            <p>Major: {student.major}</p>
+
+            <CourseTag
+                courseName="Advanced Programming in Web Technology"
+                color="lightblue"
+            />
+            <br />
             <StatBadge
                 label="GPA"
                 value={student.gpa.toString()}
             />
-        </>
+
+        </div>
+
     )
 }
+
+    Object.assign(StudentCard, {
+            propTypes: {
+                name: PropTypes.string.isRequired,
+                id: PropTypes.number.isRequired,
+                avatar: PropTypes.string.isRequired,
+                gpa: PropTypes.number.isRequired,
+                major: PropTypes.string.isRequired
+            }
+        }
+    )
