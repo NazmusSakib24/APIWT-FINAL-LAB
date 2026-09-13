@@ -60,6 +60,10 @@ function App() {
         }, 1500)
 
     }, [])
+    
+    useEffect(() => {
+      document.title = `Favorites: ${favorites}`
+    }, [favorites])
 
     const filteredStudents = students.filter((student) => {
       return (
