@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import StudentCard from './components/StudentCard'
 import DashboardHeader from './components/DashboardHeader'
 import './App.css'
+import SearchBar from './components/SearchBar'
 
 interface Student {
     id: number,
@@ -15,6 +16,7 @@ function App() {
 
     const [students, setStudents] = useState<Student[]>([])
     const [loading, setLoading] = useState(true)
+    const [query, setQuery] = useState("")
 
     useEffect(() => {
 
@@ -58,11 +60,23 @@ function App() {
 
     }, [])
 
+    const filteredStudents = students.filter((student) => {
+      return (
+          student.name.toLowerCase().includes(query.toLowerCase()) ||
+          student.major.toLowerCase().includes(query.toLowerCase())
+        )
+    })
+
     return (
         <>
             <DashboardHeader
                 title="Student Dashboard"
                 tagline="Manage and view student information"
+            />
+
+            <SearchBar
+              query={query}
+              setQuery={setQuery}
             />
 
             {
@@ -71,7 +85,7 @@ function App() {
                 ) : (
                     <div className="student-list">
                         {
-                            students.map((student) => {
+                            filteredStudents.map((student) => {
                                 return (
                                     <StudentCard
                                         key={student.id}
