@@ -3,7 +3,8 @@ import StatBadge from './StatBadge'
 
 interface DashboardHeaderProps {
     title: string,
-    tagline: string
+    tagline: string,
+    favourites: number
 }
 
 export default function DashboardHeader(header: DashboardHeaderProps) {
@@ -18,10 +19,13 @@ export default function DashboardHeader(header: DashboardHeaderProps) {
                     <a href="#">Students</a>
                     <a href="#">Courses</a>
                 </nav>
-
                 <StatBadge
                     label="Students"
                     value="4"
+                />
+                <StatBadge
+                    label="favourites"
+                    value={header.favourites.toString()}
                 />
             </header>
         </>
@@ -31,6 +35,7 @@ export default function DashboardHeader(header: DashboardHeaderProps) {
 Object.assign(DashboardHeader, {
     propTypes: {
         title: PropTypes.string.isRequired,
-        tagline: PropTypes.string.isRequired
+        tagline: PropTypes.string.isRequired,
+        favorites: PropTypes.number.isRequired
     }
 })

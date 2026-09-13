@@ -1,16 +1,20 @@
 import PropTypes from 'prop-types'
 import CourseTag from './CourseTag'
 import StatBadge from './StatBadge'
+import { useState } from 'react'
 
 interface StudentCardProps {
     name: string,
     id: number,
     avatar: string,
     gpa: number,
-    major: string
+    major: string,
+    onFavoriteChange: (isFavorite: boolean) => void
 }
 
 export default function StudentCard(student: StudentCardProps) {
+    const [isFavorite, setIsFavorite] = useState(false)
+
     return (
         <div className="student-card">
 
@@ -35,6 +39,12 @@ export default function StudentCard(student: StudentCardProps) {
                 label="GPA"
                 value={student.gpa.toString()}
             />
+            <button
+                onClick={() => { setIsFavorite(!isFavorite) 
+                    student.onFavoriteChange(!isFavorite) }}
+            >
+                {isFavorite ? "★ Favorited" : "☆ Favorite"}
+            </button>
 
         </div>
 
@@ -47,7 +57,8 @@ export default function StudentCard(student: StudentCardProps) {
                 id: PropTypes.number.isRequired,
                 avatar: PropTypes.string.isRequired,
                 gpa: PropTypes.number.isRequired,
-                major: PropTypes.string.isRequired
+                major: PropTypes.string.isRequired,
+                onFavoriteChange: PropTypes.func.isRequired
             }
         }
     )

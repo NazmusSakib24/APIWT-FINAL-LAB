@@ -17,6 +17,7 @@ function App() {
     const [students, setStudents] = useState<Student[]>([])
     const [loading, setLoading] = useState(true)
     const [query, setQuery] = useState("")
+    const [favorites, setFavorites] = useState(0)
 
     useEffect(() => {
 
@@ -72,6 +73,7 @@ function App() {
             <DashboardHeader
                 title="Student Dashboard"
                 tagline="Manage and view student information"
+                favourites={favorites}
             />
 
             <SearchBar
@@ -94,6 +96,13 @@ function App() {
                                         avatar={student.avatar}
                                         gpa={student.gpa}
                                         major={student.major}
+                                        onFavoriteChange={(isFavorite) => {
+                                          if (isFavorite) {
+                                          setFavorites(favorites + 1)
+                                        } else {
+                                          setFavorites(favorites - 1)
+                                        }
+                                      }}
                                     />
                                 )
                             })
