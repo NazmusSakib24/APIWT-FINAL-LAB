@@ -3,6 +3,7 @@ import StudentCard from './components/StudentCard'
 import DashboardHeader from './components/DashboardHeader'
 import './App.css'
 import SearchBar from './components/SearchBar'
+import SortControls from './components/SortControls'
 
 interface Student {
     id: number,
@@ -18,6 +19,7 @@ function App() {
     const [loading, setLoading] = useState(true)
     const [query, setQuery] = useState("")
     const [favorites, setFavorites] = useState(0)
+    const [sort, setSort] = useState("default")
 
     useEffect(() => {
 
@@ -72,6 +74,19 @@ function App() {
         )
     })
 
+    const sortedStudents = [...filteredStudents].sort((a, b) => {
+
+      if (sort === "name") {
+          return a.name.localeCompare(b.name)
+      }
+
+      if (sort === "gpa") {
+          return b.gpa - a.gpa
+      }
+
+      return 0
+  })
+
     return (
         <>
             <DashboardHeader
@@ -85,13 +100,18 @@ function App() {
               setQuery={setQuery}
             />
 
+            <SortControls
+              sort={sort}
+              setSort={setSort}
+            />
+
             {
                 loading ? (
                   <div className="loading-spinner"></div>
                 ) : (
                     <div className="student-list">
                         {
-                            filteredStudents.map((student) => {
+                            sortedStudents.map((student) => {
                                 return (
                                     <StudentCard
                                         key={student.id}
