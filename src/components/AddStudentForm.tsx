@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { StudentContext } from "../context/StudentContext"
 
 export default function AddStudentForm() {
@@ -15,6 +15,20 @@ export default function AddStudentForm() {
     const [idError, setIdError] = useState("")
     const [majorError, setMajorError] = useState("")
     const [gpaError, setGpaError] = useState("")
+
+    const [success, setSuccess] = useState(false)
+
+    useEffect(() => {
+
+        if (success) {
+            const timer = setTimeout(() => {
+                setSuccess(false)
+            }, 3000)
+
+            return () => clearTimeout(timer)
+        }
+
+    }, [success])
 
     const handleSubmit = (event: React.FormEvent) => {
 
@@ -75,12 +89,16 @@ export default function AddStudentForm() {
         setMajor("")
         setGpa("")
         setCourses("")
+
+        setSuccess(true)
     }
 
     return (
         <form onSubmit={handleSubmit}>
 
             <h2>Add Student</h2>
+
+            {success && <p>Student added successfully!</p>}
 
             <input
                 type="text"
