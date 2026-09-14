@@ -14,7 +14,12 @@ interface StudentCardProps {
 
 export default function StudentCard(student: StudentCardProps) {
 
-    const { favorites, setFavorites } = useContext(StudentContext)
+    const {
+        favorites,
+        setFavorites,
+        students,
+        setStudents
+    } = useContext(StudentContext)
 
     const [isFavorite, setIsFavorite] = useState(false)
 
@@ -47,6 +52,7 @@ export default function StudentCard(student: StudentCardProps) {
 
             <button
                 onClick={() => {
+
                     setIsFavorite(!isFavorite)
 
                     if (!isFavorite) {
@@ -54,9 +60,24 @@ export default function StudentCard(student: StudentCardProps) {
                     } else {
                         setFavorites(favorites - 1)
                     }
+
                 }}
             >
                 {isFavorite ? "★ Favorited" : "☆ Favorite"}
+            </button>
+
+            <button
+                onClick={() => {
+
+                    setStudents(
+                        students.filter((item) => {
+                            return item.id !== student.id
+                        })
+                    )
+
+                }}
+            >
+                Remove Student
             </button>
 
         </div>
