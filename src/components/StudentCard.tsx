@@ -1,18 +1,21 @@
 import PropTypes from 'prop-types'
 import CourseTag from './CourseTag'
 import StatBadge from './StatBadge'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { StudentContext } from '../context/StudentContext'
 
 interface StudentCardProps {
     name: string,
     id: number,
     avatar: string,
     gpa: number,
-    major: string,
-    onFavoriteChange: (isFavorite: boolean) => void
+    major: string
 }
 
 export default function StudentCard(student: StudentCardProps) {
+
+    const { favorites, setFavorites } = useContext(StudentContext)
+
     const [isFavorite, setIsFavorite] = useState(false)
 
     return (
@@ -34,31 +37,38 @@ export default function StudentCard(student: StudentCardProps) {
                 courseName="Advanced Programming in Web Technology"
                 color="lightblue"
             />
+
             <br />
+
             <StatBadge
                 label="GPA"
                 value={student.gpa.toString()}
             />
+
             <button
-                onClick={() => { setIsFavorite(!isFavorite) 
-                    student.onFavoriteChange(!isFavorite) }}
+                onClick={() => {
+                    setIsFavorite(!isFavorite)
+
+                    if (!isFavorite) {
+                        setFavorites(favorites + 1)
+                    } else {
+                        setFavorites(favorites - 1)
+                    }
+                }}
             >
                 {isFavorite ? "★ Favorited" : "☆ Favorite"}
             </button>
 
         </div>
-
     )
 }
 
-    Object.assign(StudentCard, {
-            propTypes: {
-                name: PropTypes.string.isRequired,
-                id: PropTypes.number.isRequired,
-                avatar: PropTypes.string.isRequired,
-                gpa: PropTypes.number.isRequired,
-                major: PropTypes.string.isRequired,
-                onFavoriteChange: PropTypes.func.isRequired
-            }
-        }
-    )
+Object.assign(StudentCard, {
+    propTypes: {
+        name: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
+        avatar: PropTypes.string.isRequired,
+        gpa: PropTypes.number.isRequired,
+        major: PropTypes.string.isRequired
+    }
+})

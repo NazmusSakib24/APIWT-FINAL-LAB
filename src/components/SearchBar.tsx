@@ -1,16 +1,17 @@
-interface SearchBarProps {
-    query: string,
-    setQuery: (query: string) => void
-}
+import { useContext } from "react"
+import { StudentContext } from "../context/StudentContext"
 
-export default function SearchBar(search: SearchBarProps) {
+export default function SearchBar() {
+
+    const { query, setQuery } = useContext(StudentContext)
+
     return (
         <>
             <input
                 type="text"
                 placeholder="Search students..."
-                value={search.query}
-                onChange={(event) => search.setQuery(event.target.value)}
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
             />
         </>
     )
