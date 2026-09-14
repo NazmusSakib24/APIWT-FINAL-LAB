@@ -11,6 +11,7 @@ export interface Student {
 interface StudentContextType {
     students: Student[],
     setStudents: (students: Student[]) => void,
+    studentsLoaded: boolean,
     query: string,
     setQuery: (query: string) => void,
     favorites: number,
@@ -22,6 +23,7 @@ interface StudentContextType {
 export const StudentContext = createContext<StudentContextType>({
     students: [],
     setStudents: () => {},
+    studentsLoaded: false,
     query: "",
     setQuery: () => {},
     favorites: 0,
@@ -49,7 +51,7 @@ export function StudentProvider({ children }: { children: React.ReactNode }) {
 
         } else {
 
-            setTimeout(() => {
+            const timer = setTimeout(() => {
 
                 const studentData: Student[] = [
                     {
@@ -76,7 +78,7 @@ export function StudentProvider({ children }: { children: React.ReactNode }) {
                     {
                         id: 4,
                         name: "Sadia Islam",
-                        avatar: "https://media.istockphoto.com/id/2224013845/photo/professional-businesswoman-smiling-gripping-laptop-standing-confidently-in-sleek-corporate.webp",
+                        avatar: "https://plus.unsplash.com/premium_photo-1690407617542-2f210cf20d7e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aHVtYW58ZW58MHx8MHx8fDA%3D",
                         gpa: 3.88,
                         major: "Software Engineering"
                     }
@@ -86,6 +88,8 @@ export function StudentProvider({ children }: { children: React.ReactNode }) {
                 setStudentsLoaded(true)
 
             }, 1500)
+
+            return () => clearTimeout(timer)
         }
 
     }, [])
@@ -93,7 +97,12 @@ export function StudentProvider({ children }: { children: React.ReactNode }) {
     useEffect(() => {
 
         if (studentsLoaded) {
-            localStorage.setItem("students", JSON.stringify(students))
+
+            localStorage.setItem(
+                "students",
+                JSON.stringify(students)
+            )
+
         }
 
     }, [students, studentsLoaded])
@@ -103,6 +112,7 @@ export function StudentProvider({ children }: { children: React.ReactNode }) {
             value={{
                 students,
                 setStudents,
+                studentsLoaded,
                 query,
                 setQuery,
                 favorites,

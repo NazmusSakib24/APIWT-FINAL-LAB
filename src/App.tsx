@@ -1,29 +1,21 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import StudentCard from './components/StudentCard'
 import DashboardHeader from './components/DashboardHeader'
 import './App.css'
 import SearchBar from './components/SearchBar'
 import SortControls from './components/SortControls'
+import AddStudentForm from './components/AddStudentForm'
 import { StudentContext } from './context/StudentContext'
 
 function App() {
 
     const {
         students,
+        studentsLoaded,
         query,
         favorites,
         sort
     } = useContext(StudentContext)
-
-    const [loading, setLoading] = useState(true)
-
-    useEffect(() => {
-
-        if (students.length > 0) {
-            setLoading(false)
-        }
-
-    }, [students])
 
     const filteredStudents = students.filter((student) => {
         return (
@@ -45,6 +37,12 @@ function App() {
         return 0
     })
 
+    useEffect(() => {
+
+        document.title = `Dashboard — ${sortedStudents.length} Students`
+
+    }, [sortedStudents.length])
+
     return (
         <>
             <DashboardHeader
@@ -57,8 +55,10 @@ function App() {
 
             <SortControls />
 
+            <AddStudentForm />
+
             {
-                loading ? (
+                !studentsLoaded ? (
                     <div className="loading-spinner"></div>
                 ) : (
                     <div className="student-list">
