@@ -1,13 +1,18 @@
 import PropTypes from 'prop-types'
 import StatBadge from './StatBadge'
+import { useContext } from "react"
+import { ThemeContext } from "../context/ThemeContext"
 
 interface DashboardHeaderProps {
     title: string,
     tagline: string,
-    favourites: number
+    favorites: number
 }
 
 export default function DashboardHeader(header: DashboardHeaderProps) {
+
+    const { theme, toggleTheme } = useContext(ThemeContext)
+
     return (
         <>
             <header>
@@ -19,13 +24,19 @@ export default function DashboardHeader(header: DashboardHeaderProps) {
                     <a href="#">Students</a>
                     <a href="#">Courses</a>
                 </nav>
+
+                <button onClick={toggleTheme}>
+                    {theme === "light" ? "Dark Mode" : "Light Mode"}
+                </button>
+
                 <StatBadge
                     label="Students"
                     value="4"
                 />
+
                 <StatBadge
-                    label="favourites"
-                    value={header.favourites.toString()}
+                    label="favorites"
+                    value={header.favorites.toString()}
                 />
             </header>
         </>

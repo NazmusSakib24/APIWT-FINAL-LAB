@@ -22,6 +22,7 @@ body {
     font-family: Arial, sans-serif;
     background-color: var(--background-color);
     color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
 }
 
 #root {
@@ -131,4 +132,35 @@ nav a:hover {
     to {
         transform: rotate(360deg);
     }
+}
+body.light {
+    background-color: #f8fafc;
+    color: #1e293b;
+}
+
+body.dark {
+    background-color: #0f172a;
+    color: #f8fafc;
+}
+
+body.dark header {
+    background-color: #1e40af;
+}
+
+body.dark .student-card {
+    background-color: #1e293b;
+    color: #f8fafc;
+}
+
+body.dark .student-card h2 {
+    color: #f8fafc;
+}
+
+body.dark .stat-badge {
+    background-color: #334155;
+    color: #f8fafc;
+}
+
+body.dark .course-tag {
+    color: #f8fafc;
 }

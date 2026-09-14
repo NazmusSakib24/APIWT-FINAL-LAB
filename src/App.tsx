@@ -92,7 +92,7 @@ function App() {
             <DashboardHeader
                 title="Student Dashboard"
                 tagline="Manage and view student information"
-                favourites={favorites}
+                favorites={favorites}
             />
 
             <SearchBar
